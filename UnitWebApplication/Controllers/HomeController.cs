@@ -1,24 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using UnitWebApplication.Models;
+using UnitWebApplicationBLL.Intercafes;
 
 namespace UnitWebApplication.Controllers
 {
     public class HomeController : Controller
     {
-       // private readonly ILogger _logger;
-        public HomeController()
+        // private readonly ILogger _logger;
+        IRepository _repository;
+        public HomeController(IRepository repository)
         {
-
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
+            var users = _repository.GetAll();
             ViewData["Message"] = "Hello world!";
             return View("Index");
         }

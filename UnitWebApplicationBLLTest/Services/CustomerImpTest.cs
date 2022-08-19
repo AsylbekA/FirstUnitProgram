@@ -59,27 +59,19 @@ namespace UnitWebApplicationBLLTest.Services
             const decimal expectedWage = 100 * 10;
             var sut = new CustomerImp(new LoggerImp(), gateway);
             const int anyId = 1;
-
             // act
-            gateway.SetWorkingStatistics(new WorkingStatisticsImp() { PayHourly = true, HourSalary = 100, WorkingHours = 10 });
-
-
+            gateway.SetWorkingStatistics(new WorkingStatisticsImp()
+            { PayHourly = true, HourSalary = 100, WorkingHours = 10 });
             decimal actual = sut.CalculateWage(anyId);
-
             // assert  
             Assert.That(actual, Is.EqualTo(expectedWage).Within(0.1));
         }
-
         public void CalculateWage_PassesCorrecId()
         {
             const int id = 1;
-
             var gateway = new DbGatewaySpy();
-
             var sut = new CustomerImp(new LoggerImp(), gateway);
-
             sut.CalculateWage(id);
-
             Assert.That(1, Is.EqualTo(gateway.Id));
         }
     }
